@@ -17,12 +17,14 @@ Library.prototype.addBook = function (book) {
 Library.prototype.removeBookByTitle = function (title) {
   //loop through objects, if title key has a value that matches entered title, delete object from bookshelf
   for (i = 0; i < this.bookShelf.length; i++){
-     if(book.title === this.bookShelf[i].title) {
-        
+     if(title === this.bookShelf[i].title) {
+        this.bookShelf.pop(this.bookShelf[i]);
+        console.log("Book Removed");
+        return true;
       }
   }
-  this.bookShelf.push(book);
-  return true;
+  console.log("Can't remove a book that ain't there.")
+  return false;
 };
 
 Library.prototype.removeBookByAuthor = function (author) {
