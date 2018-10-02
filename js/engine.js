@@ -23,12 +23,21 @@ Library.prototype.removeBookByTitle = function (title) {
         return true;
       }
   }
-  console.log("Can't remove a book that ain't there.")
+  console.log("Can't remove a book that ain't there.");
   return false;
 };
 
 Library.prototype.removeBookByAuthor = function (author) {
   // loop through objects, if author key has a value that matches entered author, delete object from bookshelf
+  for (i = 0; i < this.bookShelf.length; i++){
+     if(author === this.bookShelf[i].author) {
+        this.bookShelf.pop(this.bookShelf[i]);
+        console.log("Book Removed");
+        return true;
+      }
+  }
+  console.log("Can't remove an author with no books.");
+  return false;
 };
 
 Library.prototype.getRandomBook = function () {
