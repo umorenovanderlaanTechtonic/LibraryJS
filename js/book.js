@@ -14,4 +14,4 @@ function Book(title, author, numPages, pubDate){
  var book3 = new Book("The Golden Compass", "Philip Pullman", 297, "June 15, 1992");
 
 
- var books1 = [book1, book2, book3]
+ var books1 = [book1, book2]

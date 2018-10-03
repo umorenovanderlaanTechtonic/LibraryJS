@@ -109,14 +109,16 @@ Library.prototype.getRandomAuthorName = function () {
   };
 };
 
+
+// TO SAVE LIBRARY STATE, YOU MUST CREATE STORAGE FOR LIBRARY AGAIN //
 Library.prototype.createStorage = function(){
-  localStorage.setItem('UlaLibrary',JSON.stringify(this.bookShelf))
-  return console.log("Storage created.")
+  localStorage.setItem('gLibrary',JSON.stringify(this.bookShelf));
+  return console.log("Storage created.");
 }
 
 Library.prototype.getStorage = function(){
   var bookObjs = [];
-  var jsonObj = JSON.parse(localStorage.getItem("UlaLibrary"));
+  var jsonObj = JSON.parse(localStorage.getItem("gLibrary"));
   for (var i = 0; i < jsonObj.length; i++) {
     bookObjs.push(new Book(jsonObj[i].title , jsonObj[i].author , jsonObj[i].numPages , jsonObj[i].pubDate))
   };
@@ -125,5 +127,13 @@ Library.prototype.getStorage = function(){
 
 document.addEventListener("DOMContentLoaded", function(e){
   window.gLibrary = new Library();
-  //add storage here???
-});
+
+  if (window.localStorage.length > 0) {
+    console.log("Loading Last Library State.");
+    window.gLibrary.bookShelf = gLibrary.getStorage()}
+    else {
+      console.log("Creating New Library.");
+      gLibrary.addBooks(books1);
+      gLibrary.createStorage();
+    }
+  });
