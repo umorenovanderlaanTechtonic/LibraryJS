@@ -85,10 +85,7 @@ Library.prototype.addBooks = function (books) {
   return booksAdded;
 };
 
-//
-
 Library.prototype.getAuthors = function () {
-  //get all authors in an array, loop (maybe there's a js thing?) to eliminate duplicates, if loop push new ones to a unique array, return array after loop
   var rawA = [];
   var uniqA = [];
   for (var i = 0; i < this.bookShelf.length; i++) {
@@ -112,6 +109,21 @@ Library.prototype.getRandomAuthorName = function () {
   };
 };
 
+Library.prototype.createStorage = function(){
+  localStorage.setItem('UlaLibrary',JSON.stringify(this.bookShelf))
+  return console.log("Storage created.")
+}
+
+Library.prototype.getStorage = function(){
+  var bookObjs = [];
+  var jsonObj = JSON.parse(localStorage.getItem("UlaLibrary"));
+  for (var i = 0; i < jsonObj.length; i++) {
+    bookObjs.push(new Book(jsonObj[i].title , jsonObj[i].author , jsonObj[i].numPages , jsonObj[i].pubDate))
+  };
+  return bookObjs;
+}
+
 document.addEventListener("DOMContentLoaded", function(e){
   window.gLibrary = new Library();
+  //add storage here???
 });
