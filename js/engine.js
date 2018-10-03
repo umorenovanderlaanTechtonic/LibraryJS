@@ -55,16 +55,18 @@ Library.prototype.getRandomBook = function () {
 Library.prototype.getBookByTitle = function (title) {
   for (i = 0; i < this.bookShelf.length; i++){
      if(title === this.bookShelf[i].title) {
-        return this.bookShelf[i];
+        books = [];
+        books.push(this.bookShelf[i]);
+        return books;
       }
   };
   console.log("No books with this title.");
 };
 
 
-Library.prototype.getBookByAuthor = function (authorname) {
+Library.prototype.getBookByAuthor = function (authorName) {
   for (i = 0; i < this.bookShelf.length; i++){
-     if(authorname === this.bookShelf[i].author) {
+     if(authorName === this.bookShelf[i].author) {
         return this.bookShelf[i];
       }
   };
@@ -76,7 +78,16 @@ Library.prototype.addBooks = function (books) {
 };
 
 Library.prototype.getAuthors = function () {
-
+  //get all authors in an array, loop (maybe there's a js thing?) to eliminate duplicates, if loop push new ones to a unique array, return array after loop
+  var rawA = [];
+  var uniqA = [];
+  for (var i = 0; i < this.bookShelf.length; i++) {
+    rawA.push(this.bookShelf[i].author)
+  };
+  uniqA = rawA.filter(function(value,index,self){
+    return self.indexOf(value) === index;
+  });
+  return uniqA;
 };
 
 Library.prototype.getRandomAuthorName = function () {
