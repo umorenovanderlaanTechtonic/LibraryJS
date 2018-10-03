@@ -1,6 +1,6 @@
-function Library(){
+var Library = (function Library(){
   this.bookShelf = new Array();
-};
+});
 
 Library.prototype.addBook = function (book) {
   //push book to bookshelf array O(N)
@@ -139,8 +139,8 @@ document.addEventListener("DOMContentLoaded", function(e){
     };
 
     //loop to set prototype of books from local storage//
-  for (i=0 ; i < window.gLibrary.bookShelf.length ; i++) {
-    Object.create(Book.prototype, [window.gLibrary.bookShelf[i]]);
-    console.log(Object.getPrototypeOf(window.gLibrary.bookShelf[i]));
-  };
+  // for (i=0 ; i < window.gLibrary.bookShelf.length ; i++) {
+  //   Object.create(Book.prototype, [window.gLibrary.bookShelf[i]]);
+  //   console.log(Object.getPrototypeOf(window.gLibrary.bookShelf[i]));
+  // };
 });
