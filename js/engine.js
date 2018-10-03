@@ -41,7 +41,15 @@ Library.prototype.removeBookByAuthor = function (author) {
 };
 
 Library.prototype.getRandomBook = function () {
-  //use math method random to select an index number, pull object and return associated book
+  if(this.bookShelf.length === 0){
+    return null;
+  }
+  else{
+    min = 0;
+    max = Math.floor(this.bookShelf.length);
+    i = Math.floor(Math.random() * (max-min + 1)) + min;
+    return this.bookShelf[i];
+  };
 };
 
 Library.prototype.getBookByTitle = function (title) {
@@ -61,7 +69,15 @@ Library.prototype.getAuthors = function () {
 };
 
 Library.prototype.getRandomAuthorName = function () {
-
+  if(this.bookShelf.length === 0){
+    return null;
+  }
+  else{
+    min = 0;
+    max = Math.floor(this.bookShelf.length);
+    i = Math.floor(Math.random() * (max-min + 1)) + min;
+    return this.bookShelf[i].author;
+  };
 };
 
 document.addEventListener("DOMContentLoaded", function(e){
