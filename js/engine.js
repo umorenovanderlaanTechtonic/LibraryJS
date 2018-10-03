@@ -83,6 +83,8 @@ Library.prototype.addBooks = function (books) {
   return booksAdded;
 };
 
+//
+
 Library.prototype.getAuthors = function () {
   //get all authors in an array, loop (maybe there's a js thing?) to eliminate duplicates, if loop push new ones to a unique array, return array after loop
   var rawA = [];
