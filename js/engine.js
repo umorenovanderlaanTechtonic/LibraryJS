@@ -5,10 +5,10 @@ function Library(){
 Library.prototype.addBook = function (book) {
   //push book to bookshelf array O(N)
   for (i = 0; i < this.bookShelf.length; i++){
-     if(book.title === this.bookShelf[i].title) {
+    if(book.title === this.bookShelf[i].title) {
         alert("Why are you buying two copies of the same book??");
         return false;
-      }
+    }
   }
   this.bookShelf.push(book);
   return true;
@@ -17,12 +17,12 @@ Library.prototype.addBook = function (book) {
 Library.prototype.removeBookByTitle = function (title) {
   //loop through objects, if title key has a value that matches entered title, delete object from bookshelf
   for (i = 0; i < this.bookShelf.length; i++){
-     if(title === this.bookShelf[i].title) {
+    if(title === this.bookShelf[i].title) {
         this.bookShelf.pop(this.bookShelf[i]);
         console.log("Book Removed");
         return true;
-      }
-  }
+    }
+  };
   console.log("Can't remove a book that ain't there.");
   return false;
 };
@@ -53,24 +53,26 @@ Library.prototype.getRandomBook = function () {
 };
 
 Library.prototype.getBookByTitle = function (title) {
+  title = title.toLowerCase();
+  var filteredA = []
   for (i = 0; i < this.bookShelf.length; i++){
-     if(title === this.bookShelf[i].title) {
-        books = [];
-        books.push(this.bookShelf[i]);
-        return books;
-      }
+    if(this.bookShelf[i].title.toLowerCase().indexOf(title.toLowerCase()) > -1) {
+        filteredA.push(this.bookShelf[i]);
+    }
   };
-  console.log("No books with this title.");
+  return filteredA;
 };
 
 
 Library.prototype.getBookByAuthor = function (authorName) {
+  authorName = authorName.toLowerCase();
+  var filteredA = []
   for (i = 0; i < this.bookShelf.length; i++){
-     if(authorName === this.bookShelf[i].author) {
-        return this.bookShelf[i];
-      }
+    if(this.bookShelf[i].author.toLowerCase().indexOf(authorName.toLowerCase()) > -1) {
+        filteredA.push(this.bookShelf[i]);
+    }
   };
-  console.log("No books with this author.");
+  return filteredA;
 };
 
 Library.prototype.addBooks = function (books) {
