@@ -53,11 +53,22 @@ Library.prototype.getRandomBook = function () {
 };
 
 Library.prototype.getBookByTitle = function (title) {
-
+  for (i = 0; i < this.bookShelf.length; i++){
+     if(title === this.bookShelf[i].title) {
+        return this.bookShelf[i];
+      }
+  };
+  console.log("No books with this title.");
 };
 
-Library.prototype.getBookByAuthor = function (authorname) {
 
+Library.prototype.getBookByAuthor = function (authorname) {
+  for (i = 0; i < this.bookShelf.length; i++){
+     if(authorname === this.bookShelf[i].author) {
+        return this.bookShelf[i];
+      }
+  };
+  console.log("No books with this author.");
 };
 
 Library.prototype.addBooks = function (books) {
