@@ -132,6 +132,19 @@ Library.prototype.getRandomAuthorName = function () {
   };
 };
 
+Library.protoype.search = function(entry) {
+  //breatk entry into pieces along space lines
+  //add pieces to new array
+  //do a for loop for value in array comparing it to this.bookShelf leveraging various searches??
+    //for each search, if a match, push to a holding results Array
+  //filter duplicates in results array
+  //return unique results
+
+  for (i = 0; i < this.bookshelf.length; i ++) {
+    if(entry. ===
+  }
+}
+
 
 // TO SAVE LIBRARY STATE, YOU MUST CREATE STORAGE FOR LIBRARY AGAIN //
 Library.prototype.createStorage = function(){
