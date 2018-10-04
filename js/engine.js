@@ -1,6 +1,28 @@
-var Library = (function Library(){
+//I don't know why this works tbh, but I'm not gonna question it at this point
+(function() {
+  var singleton;
+  Library = function () {
+    if (singleton != undefined) {
+      return singleton;
+    }
+  singleton = this;
   this.bookShelf = new Array();
-});
+  }
+})();
+
+  //checks if there's a singleton aka Library or not, if there is returns it
+// Library = {
+//   var singleton;
+//   function() {
+//   if (singleton) {
+//     return singleton
+//   }
+// };
+// //sets singleton equal to library, including anything that was loaded due to conditional
+// singleton = this;
+// //array for books
+// this.bookShelf = new Array();
+// });
 
 Library.prototype.addBook = function (book) {
   //push book to bookshelf array O(N)
