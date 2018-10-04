@@ -10,23 +10,10 @@
   }
 })();
 
-  //checks if there's a singleton aka Library or not, if there is returns it
-// Library = {
-//   var singleton;
-//   function() {
-//   if (singleton) {
-//     return singleton
-//   }
-// };
-// //sets singleton equal to library, including anything that was loaded due to conditional
-// singleton = this;
-// //array for books
-// this.bookShelf = new Array();
-// });
 
 Library.prototype.addBook = function (book) {
   //push book to bookshelf array O(N)
-  for (i = 0; i < this.bookShelf.length; i++){
+  for (var i = 0; i < this.bookShelf.length; i++){
     if(book.title === this.bookShelf[i].title) {
         alert("Why are you buying two copies of the same book??");
         return false;
@@ -39,7 +26,7 @@ Library.prototype.addBook = function (book) {
 
 Library.prototype.removeBookByTitle = function (title) {
   //loop through objects, if title key has a value that matches entered title, delete object from bookshelf
-  for (i = 0; i < this.bookShelf.length; i++){
+  for (var i = 0; i < this.bookShelf.length; i++){
     if(title === this.bookShelf[i].title) {
         this.bookShelf.pop(this.bookShelf[i]);
         console.log("Book Removed");
@@ -52,7 +39,7 @@ Library.prototype.removeBookByTitle = function (title) {
 
 Library.prototype.removeBookByAuthor = function (author) {
   // loop through objects, if author key has a value that matches entered author, delete object from bookshelf
-  for (i = 0; i < this.bookShelf.length; i++){
+  for (var i = 0; i < this.bookShelf.length; i++){
      if(author === this.bookShelf[i].author) {
         this.bookShelf.pop(this.bookShelf[i]);
         console.log("Book Removed");
@@ -68,9 +55,9 @@ Library.prototype.getRandomBook = function () {
     return null;
   }
   else{
-    min = 0;
-    max = Math.floor(this.bookShelf.length);
-    i = Math.floor(Math.random() * (max-min + 1)) + min;
+    var min = 0;
+    var max = Math.floor(this.bookShelf.length);
+    var i = Math.floor(Math.random() * (max-min + 1)) + min;
     return this.bookShelf[i];
   };
 };
@@ -78,7 +65,7 @@ Library.prototype.getRandomBook = function () {
 Library.prototype.getBookByTitle = function (title) {
   title = title.toLowerCase();
   var filteredA = []
-  for (i = 0; i < this.bookShelf.length; i++){
+  for (var i = 0; i < this.bookShelf.length; i++){
     if(this.bookShelf[i].title.toLowerCase().indexOf(title.toLowerCase()) > -1) {
         filteredA.push(this.bookShelf[i]);
     }
@@ -90,7 +77,7 @@ Library.prototype.getBookByTitle = function (title) {
 Library.prototype.getBookByAuthor = function (authorName) {
   authorName = authorName.toLowerCase();
   var filteredA = []
-  for (i = 0; i < this.bookShelf.length; i++){
+  for (var i = 0; i < this.bookShelf.length; i++){
     if(this.bookShelf[i].author.toLowerCase().indexOf(authorName.toLowerCase()) > -1) {
         filteredA.push(this.bookShelf[i]);
     }
@@ -125,28 +112,36 @@ Library.prototype.getRandomAuthorName = function () {
     return null;
   }
   else{
-    min = 0;
-    max = Math.floor(this.bookShelf.length);
-    i = Math.floor(Math.random() * (max-min + 1)) + min;
+    var min = 0;
+    var max = Math.floor(this.bookShelf.length);
+    var i = Math.floor(Math.random() * (max-min + 1)) + min;
     return this.bookShelf[i].author;
   };
 };
 
-Library.protoype.search = function(entry) {
-  //breatk entry into pieces along space lines
-  //add pieces to new array
-  //do a for loop for value in array comparing it to this.bookShelf leveraging various searches??
-    //for each search, if a match, push to a holding results Array
-  //filter duplicates in results array
-  //return unique results
-
-  for (i = 0; i < this.bookshelf.length; i ++) {
-    if(entry. ===
+Library.prototype.search = function(entry) {
+  //break entry into pieces along space lines & add pieces to new array
+  brokenEntry = entry.split(" ");
+  //do a for loop for value in array comparing it to this.bookShelf leveraging various searches, push nested search results to an array
+  rawResults = [];
+  for (var i=0; i < brokenEntry.length; i++) {
+    rawResults.push(this.getBookByAuthor(brokenEntry[i]));
+    rawResults.push(this.getBookByTitle(brokenEntry[i]));
   }
-}
+  //concat all arrays within rawResults array
+  var mergedResults = [].concat.apply([],rawResults);
+
+  //filter duplicates in results array
+  uniqResults = mergedResults.filter(function(value,index,self){
+  return self.indexOf(value) === index;
+  });
+
+  //return unique results
+  return uniqResults;
+  };
 
 
-// TO SAVE LIBRARY STATE, YOU MUST CREATE STORAGE FOR LIBRARY AGAIN //
+// TO SAVE LIBRARY STATE, YOU MUST CREATE STORAGE FOR LIBRARY AGAIN, BUT THIS HAS BEEN AUTOMATED FOR ADD BOOK FUNCTION ONLY NECESSARY AFTER EDITING?? TEST THIS. //
 Library.prototype.createStorage = function(){
   localStorage.setItem('gLibrary',JSON.stringify(this.bookShelf));
   return console.log("Library State Saved.");
@@ -172,10 +167,4 @@ document.addEventListener("DOMContentLoaded", function(e){
       gLibrary.addBooks(books1);
       gLibrary.createStorage();
     };
-
-    //loop to set prototype of books from local storage//
-  // for (i=0 ; i < window.gLibrary.bookShelf.length ; i++) {
-  //   Object.create(Book.prototype, [window.gLibrary.bookShelf[i]]);
-  //   console.log(Object.getPrototypeOf(window.gLibrary.bookShelf[i]));
-  // };
 });
