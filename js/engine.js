@@ -1,4 +1,4 @@
-//I don't know why this works tbh, but I'm not gonna question it at this point
+//Okay I've learned more about iffes and this makes sense now.
 (function() {
   var singleton;
   Library = function () {
@@ -6,8 +6,8 @@
       return singleton;
     }
   singleton = this;
-  this.bookShelf = new Array();
-  }
+  this.bookShelf = [];
+};
 })();
 
 
@@ -32,7 +32,7 @@ Library.prototype.removeBookByTitle = function (title) {
         console.log("Book Removed");
         return true;
     }
-  };
+  }
   console.log("Can't remove a book that ain't there.");
   return false;
 };
@@ -59,29 +59,29 @@ Library.prototype.getRandomBook = function () {
     var max = Math.floor(this.bookShelf.length);
     var i = Math.floor(Math.random() * (max-min + 1)) + min;
     return this.bookShelf[i];
-  };
+  }
 };
 
 Library.prototype.getBookByTitle = function (title) {
   title = title.toLowerCase();
-  var filteredA = []
+  var filteredA = [];
   for (var i = 0; i < this.bookShelf.length; i++){
     if(this.bookShelf[i].title.toLowerCase().indexOf(title.toLowerCase()) > -1) {
         filteredA.push(this.bookShelf[i]);
     }
-  };
+  }
   return filteredA;
 };
 
 
 Library.prototype.getBookByAuthor = function (authorName) {
   authorName = authorName.toLowerCase();
-  var filteredA = []
+  var filteredA = [];
   for (var i = 0; i < this.bookShelf.length; i++){
     if(this.bookShelf[i].author.toLowerCase().indexOf(authorName.toLowerCase()) > -1) {
         filteredA.push(this.bookShelf[i]);
     }
-  };
+  }
   return filteredA;
 };
 
@@ -99,8 +99,8 @@ Library.prototype.getAuthors = function () {
   var rawA = [];
   var uniqA = [];
   for (var i = 0; i < this.bookShelf.length; i++) {
-    rawA.push(this.bookShelf[i].author)
-  };
+    rawA.push(this.bookShelf[i].author);
+  }
   uniqA = rawA.filter(function(value,index,self){
     return self.indexOf(value) === index;
   });
@@ -116,7 +116,7 @@ Library.prototype.getRandomAuthorName = function () {
     var max = Math.floor(this.bookShelf.length);
     var i = Math.floor(Math.random() * (max-min + 1)) + min;
     return this.bookShelf[i].author;
-  };
+  }
 };
 
 Library.prototype.search = function(entry) {
@@ -130,12 +130,10 @@ Library.prototype.search = function(entry) {
   }
   //concat all arrays within rawResults array
   var mergedResults = [].concat.apply([],rawResults);
-
   //filter duplicates in results array
   uniqResults = mergedResults.filter(function(value,index,self){
   return self.indexOf(value) === index;
   });
-
   //return unique results
   return uniqResults;
   };
@@ -145,16 +143,16 @@ Library.prototype.search = function(entry) {
 Library.prototype.createStorage = function(){
   localStorage.setItem('gLibrary',JSON.stringify(this.bookShelf));
   return console.log("Library State Saved.");
-}
+};
 
 Library.prototype.getStorage = function(){
   var bookObjs = [];
   var jsonObj = JSON.parse(localStorage.getItem("gLibrary"));
   for (var i = 0; i < jsonObj.length; i++) {
-    bookObjs.push(new Book(jsonObj[i].title , jsonObj[i].author , jsonObj[i].numPages , jsonObj[i].pubDate))
-  };
+    bookObjs.push(new Book(jsonObj[i].title , jsonObj[i].author , jsonObj[i].numPages , jsonObj[i].pubDate));
+  }
   return bookObjs;
-}
+};
 
 document.addEventListener("DOMContentLoaded", function(e){
   window.gLibrary = new Library();
@@ -166,5 +164,5 @@ document.addEventListener("DOMContentLoaded", function(e){
       console.log("Creating New Library.");
       gLibrary.addBooks(books1);
       gLibrary.createStorage();
-    };
+    }
 });
