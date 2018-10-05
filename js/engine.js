@@ -32,33 +32,42 @@ Library.prototype.addBook = function (book) {
 };
 
 Library.prototype.removeBookByTitle = function (title) {
-  //loop through objects, if title key has a value that matches entered title, delete object from bookshelf
+  //loop through objects, if title key has a value that matches entered title, delete object from bookshelf, console log the removal, reset library.
   title = title.trim().toLowerCase();
   for (var i = 0; i < this.bookShelf.length; i++){
     if(title === this.bookShelf[i].title.trim().toLowerCase()) {
         this.bookShelf.pop(this.bookShelf[i]);
         console.log("Book Removed");
         gLibrary.createStorage();
-        return true;
     }
+    return true;
   }
+  // if for loop isn't fulfilled, console log and return false
   console.log("Can't remove a book that ain't there.");
   return false;
 };
 
 Library.prototype.removeBookByAuthor = function (author) {
-  // loop through objects, if author key has a value that matches entered author, delete object from bookshelf
+  counter = 0;
+  // normalizes author name
   author = author.trim().toLowerCase();
   for (var i = 0; i < this.bookShelf.length; i++){
-     if(author === this.bookShelf[i].author.trim().toLowerCase()) {
-        this.bookShelf.pop(this.bookShelf[i]);
+  // compares input to normalized object. If equivalent, removes item from bookshelf,
+    if(author === this.bookShelf[i].author.trim().toLowerCase()) {
+        this.bookShelf.splice(i, 1);
         console.log("Book Removed");
         gLibrary.createStorage();
-        return true;
+        counter = counter + 1;
+        i--;
       }
   }
-  console.log("Can't remove an author with no books.");
-  return false;
+// checks if books were removed, if yes, returns true if not, console logs it and returns false
+  if (counter > 0) {
+    return true;
+  } else {
+    console.log("Can't remove an author with no books.");
+    return false;
+  }
 };
 
 Library.prototype.getRandomBook = function () {
@@ -76,8 +85,11 @@ Library.prototype.getRandomBook = function () {
 };
 
 Library.prototype.getBookByTitle = function (title) {
+  //normalizes user input
   title = title.trim().toLowerCase();
+  //sets up an empty array
   var filteredA = [];
+  //for the loop, normalizes title, then searches for partial matches through indexOf, if a partial match, pushes book to array.
   for (var i = 0; i < this.bookShelf.length; i++){
     if(this.bookShelf[i].title.trim().toLowerCase().indexOf(title) > -1) {
         filteredA.push(this.bookShelf[i]);
