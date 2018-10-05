@@ -20,7 +20,20 @@
       "REVIEW"
     ]
   },
-  "lists": [],
+  "lists": [
+    {
+      "name": "TODO",
+      "hidden": false
+    },
+    {
+      "name": "Doing",
+      "hidden": false
+    },
+    {
+      "name": "DONE",
+      "hidden": false
+    }
+  ],
   "marked": {
     "gfm": true,
     "tables": true,
